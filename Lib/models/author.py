@@ -52,5 +52,5 @@ class Author :
             SELECT DISTINCT m.category FROM magazines m
             JOIN articles a ON m.id = a.magazine_id
             WHERE a.author_id = ?
-        """, (self.id,))
+        """,  (self.id,) )
         return [row['category'] for row in cursor.fetchall()]

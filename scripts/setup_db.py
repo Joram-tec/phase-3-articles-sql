@@ -2,7 +2,9 @@ from Lib.db.connection import get_connection
 
 def data_base():
     conn = get_connection()
-    with open ("lib/db/schema.sql") as file:
+    cursor = conn.cursor()
+
+    with open ("Lib/db/schema.sql", "r") as file:
         conn.executescript(file.read())
     conn.commit()
     conn.close()    

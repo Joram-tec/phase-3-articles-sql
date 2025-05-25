@@ -1,4 +1,4 @@
-from lib.db.connection import get_connection
+from Lib.db.connection import get_connection
 
 def data_base():
     conn = get_connection()

@@ -63,12 +63,16 @@ def test_article_deletion(sample_author_and_magazine):
 
     conn = get_connection()
     cursor = conn.cursor()
+
+    # Check the article exists initially
     cursor.execute("SELECT id FROM articles WHERE id = ?", (article.id,))
     assert cursor.fetchone() is not None
 
-   
+    # Call the delete method to remove the article
+    article.delete()  # <-- This is the important missing step!
+
     conn.commit()
 
+    # Now check the article no longer exists
     cursor.execute("SELECT id FROM articles WHERE id = ?", (article.id,))
     assert cursor.fetchone() is None
-    conn.close()

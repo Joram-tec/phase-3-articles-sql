@@ -8,7 +8,7 @@ def clean_db():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM magazines")
-    cursor.execute("DELETE FROM sqlite_sequence WHERE name='magazines'")  # reset autoincrement for magazines only
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='magazines'")  
     conn.commit()
     conn.close()
     yield

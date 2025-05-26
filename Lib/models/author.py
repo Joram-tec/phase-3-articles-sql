@@ -1,7 +1,8 @@
 from Lib.db.connection import get_connection
+from Lib.models.article import Article
+from Lib.models.magazine import Magazine
 
 class Author:
-
     def __init__(self, name, id=None):
         if not name:
             raise ValueError("Author name cannot be empty.")
@@ -24,7 +25,7 @@ class Author:
         row = cursor.fetchone()
         conn.close()
         if row:
-            return cls(id=row[0], name=row[1])
+            return cls(id=row["id"], name=row["name"])
         return None
 
     @classmethod
@@ -34,13 +35,23 @@ class Author:
         cursor.execute("SELECT * FROM authors")
         rows = cursor.fetchall()
         conn.close()
-        return [cls(id=row[0], name=row[1]) for row in rows]
+        return [cls(id=row["id"], name=row["name"]) for row in rows]
 
     def articles(self):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM articles WHERE author_id = ?", (self.id,))
-        return cursor.fetchall()
+        rows = cursor.fetchall()
+        conn.close()
+        return [
+            Article(
+                id=row["id"],
+                title=row["title"],
+                author_id=row["author_id"],
+                magazine_id=row["magazine_id"]
+            )
+            for row in rows
+        ]
 
     def magazines(self):
         conn = get_connection()
@@ -50,10 +61,14 @@ class Author:
             JOIN articles a ON m.id = a.magazine_id
             WHERE a.author_id = ?
         """, (self.id,))
-        return cursor.fetchall()
+        rows = cursor.fetchall()
+        conn.close()
+        return [
+            Magazine(id=row["id"], name=row["name"], category=row["category"])
+            for row in rows
+        ]
 
     def add_article(self, magazine, title):
-        from Lib.models.article import Article
         article = Article(title=title, author_id=self.id, magazine_id=magazine.id)
         article.save()
         return article
@@ -66,7 +81,9 @@ class Author:
             JOIN articles a ON m.id = a.magazine_id
             WHERE a.author_id = ?
         """, (self.id,))
-        return [row[0] for row in cursor.fetchall()]
+        rows = cursor.fetchall()
+        conn.close()
+        return [row[0] for row in rows]
 
     @classmethod
     def get(cls, id):
@@ -75,7 +92,6 @@ class Author:
         cursor.execute("SELECT * FROM authors WHERE id = ?", (id,))
         row = cursor.fetchone()
         conn.close()
-
         if row:
             return cls(id=row["id"], name=row["name"])
         return None

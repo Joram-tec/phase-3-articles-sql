@@ -16,22 +16,27 @@ def clear_database():
 
 def seed_authors():
     authors = [
-        {"name": "Ada Lovelace", "specialty": "Technology"},
+        {"name": "Joram Wayne", "specialty": "Technology"},
+        {"name": "Austin Miana", "specialty": "Horror"},
+        {"name": "Eunice Wangui", "specialty": "Science Fiction"},
+        {"name": "GlGalo Austen", "specialty": "Romance"},
+        {"name": "Bill Chris", "specialty": "Mystery"},
+        {"name": "Ada Lovelace", "specialty": "Programming"},
         {"name": "Mary Shelley", "specialty": "Horror"},
-        {"name": "Octavia Butler", "specialty": "Science Fiction"},
+        {"name": "Octavia Butler", "specialty": "Sci-Fi"},
         {"name": "Jane Austen", "specialty": "Romance"},
         {"name": "Agatha Christie", "specialty": "Mystery"}
-    ]
+]
     for author in authors:
         Author(name=author["name"]).save()
 
 def seed_magazines():
     magazines = [
-        {"name": "Code Quarterly", "category": "Programming"},
-        {"name": "Chilling Tales", "category": "Horror"},
-        {"name": "Future Visions", "category": "Sci-Fi"},
-        {"name": "Literary Love", "category": "Romance"},
-        {"name": "Crime Chronicles", "category": "Mystery"}
+        {"name": "Code Challenges", "category": "Programming"},
+        {"name": "Chilling Vibes", "category": "Horror"},
+        {"name": "Light Visions", "category": "Sci-Fi"},
+        {"name": "Nymphomaniac Love", "category": "Romance"},
+        {"name": "The society ", "category": "Mystery"}
     ]
     for magazine in magazines:
         Magazine(name=magazine["name"], category=magazine["category"]).save()

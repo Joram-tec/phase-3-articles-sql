@@ -37,6 +37,10 @@ This system handles:
 
 ---
 
+## Technologies used 
+1. Python 
+2. sql 
+
 ##  Setup Instructions
 
 > Make sure you're in the project root (`phase-3-articles-sql`) before running the following.
@@ -47,11 +51,11 @@ We’re using Python's built-in modules, so just ensure your environment is read
 ```bash
 python --version
 
-## 2. Set up the database 
+## 2. Set up the database and tables
 # python -m scripts.setup_db
 
 
-## 3. Populate tables 
+## 3. Populate tables with data
 # python -m Lib.db.seed
 
 
@@ -63,6 +67,8 @@ python --version
 # Made by @Joram-tec
 
 ##  Licensed
+
+MIT License
 
 
 
